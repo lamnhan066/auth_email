@@ -16,4 +16,4 @@ $ALLOWED_APPS = [
     // ],
 ];
 
-$SERVER_KEY = '';
+$SERVER_SHA256_KEY = '';

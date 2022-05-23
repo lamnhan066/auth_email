@@ -1,4 +1,4 @@
-# auth_email
+# Auth Email
 
 A new Flutter plugin project.
 

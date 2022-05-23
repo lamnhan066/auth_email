@@ -30,7 +30,7 @@ if (!$serverKey) {
 }
 
 // Compare server key
-if (hash('sha256', $serverKey) !== $_serverKey) {
+if (hash('sha256', $serverKey) !== $SERVER_SHA256_KEY) {
     exit(json_encode(['status' => 'fail', 'message' => 'server-key-mismatch']));
 }
 
@@ -80,14 +80,14 @@ $otp = generateOtp($otpLength);
 
 try {
     //Server settings
-    $mail->SMTPDebug = SMTP::DEBUG_OFF;                      //Enable verbose debug output
-    $mail->isSMTP();                                            //Send using SMTP
-    $mail->Host = $HOST;                     //Set the SMTP server to send through
-    $mail->SMTPAuth = true;                                   //Enable SMTP authentication
-    $mail->Username = $USER_NAME;                     //SMTP username
-    $mail->Password = $PASSWORD;                               //SMTP PA$PASSWORD
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
-    $mail->Port = $PORT;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS` else `PHPMailer::ENCRYPTION_SMTPS`
+    $mail->SMTPDebug = SMTP::DEBUG_OFF; //Enable verbose debug output
+    $mail->isSMTP(); //Send using SMTP
+    $mail->Host = $HOST; //Set the SMTP server to send through
+    $mail->SMTPAuth = true; //Enable SMTP authentication
+    $mail->Username = $USER_NAME; //SMTP username
+    $mail->Password = $PASSWORD; //SMTP PA$PASSWORD
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; //Enable implicit TLS encryption
+    $mail->Port = $PORT; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS` else `PHPMailer::ENCRYPTION_SMTPS`
 
     //Recipients
     $mail->setFrom($SEND_FROM, $appName);

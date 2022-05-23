@@ -1,17 +1,29 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:auth_email/auth_email.dart';
 
-final emailOtp = AuthEmail(
-  appName: 'Flickr Saver',
-  server: 'https://auth.softs.dev/email',
-  serverKey: 'ohYwh',
+final authEmail = AuthEmail(
+  appName: 'Auth Email Test',
+  server: 'https://pub.vursin.com/auth-email',
+  serverKey: 'authemailtestkey',
+  isDebug: true,
 );
 
 void main() async {
-  const desMail = 'destination@gmail.com';
+  const desMail = 'lyoclone@gmail.com';
 
-  final result = await emailOtp.sendOTP(email: desMail);
+  final result = await authEmail.sendOTP(email: desMail);
+
   if (result) {
-    final isVerified = emailOtp.verifyOTP(email: desMail, otp: 'someOTP');
+    print('Please input your OTP:');
+    var line = stdin.readLineSync(encoding: utf8);
+    if (line == null) {
+      print('Can\'t read your OTP');
+      return;
+    }
+
+    final isVerified = authEmail.verifyOTP(email: desMail, otp: line);
     if (isVerified) {
       print('OK');
     } else {

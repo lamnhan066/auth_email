@@ -1,62 +1,78 @@
-import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:auth_email/auth_email.dart';
+import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+final authEmail = AuthEmail(
+  appName: 'Auth Email Test',
+  server: 'https://pub.vursin.com/auth-email',
+  serverKey: 'authemailtestkey',
+);
+
+void main() async {
+  runApp(const MaterialApp(home: AuthEmailApp()));
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class AuthEmailApp extends StatefulWidget {
+  const AuthEmailApp({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<AuthEmailApp> createState() => _AuthEmailAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _authEmailPlugin = AuthEmail();
+class _AuthEmailAppState extends State<AuthEmailApp> {
+  final destinationMail = 'lyoclone@gmail.com';
 
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
+  String buttonName = 'Send OTP';
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      platformVersion =
-          await _authEmailPlugin.getPlatformVersion() ?? 'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
-  }
+  bool isSent = false;
+  String textField = '';
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Auth Email'),
+      ),
+      body: Column(
+        children: [
+          if (isSent)
+            ElevatedButton(
+              onPressed: () async {
+                setState(() {
+                  buttonName = 'Sending OTP...';
+                });
+
+                final result = await authEmail.sendOTP(email: destinationMail);
+
+                if (!result) {
+                  setState(() {
+                    buttonName = 'Send OTP failed!';
+                  });
+                }
+                setState(() {
+                  isSent = result;
+                });
+              },
+              child: Text(buttonName),
+            )
+          else ...[
+            TextField(
+              onChanged: (value) {
+                textField = value;
+              },
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final result =
+                    authEmail.verifyOTP(email: destinationMail, otp: textField);
+
+                setState(() {
+                  isSent = result;
+                });
+              },
+              child: const Text('Verify OTP'),
+            )
+          ]
+        ],
       ),
     );
   }

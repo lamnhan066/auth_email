@@ -20,8 +20,11 @@ class AuthEmail {
   });
 
   /// [body] default is `Use this OTP to verify your email for the <b>{appName}</b>, please do not share to anyone: {otp}`
-  Future<bool> sendOTP(
-      {required email, String body = '', int otpLength = 6}) async {
+  Future<bool> sendOTP({
+    required email,
+    String body = '',
+    int otpLength = 6,
+  }) async {
     if (!isEmail(email)) return false;
 
     _finalEmail = email;
@@ -46,7 +49,7 @@ class AuthEmail {
     if (_finalEmail == '' || _finalOTP == '') {
       return false;
     }
-    if (email == _finalEmail && otp == _finalOTP) {
+    if (email.trim() == _finalEmail && otp.trim() == _finalOTP) {
       return true;
     }
     return false;
