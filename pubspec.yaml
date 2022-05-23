@@ -1,0 +1,16 @@
+name: auth_email
+description: A new Flutter plugin project.
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.13.4
+
+dev_dependencies:
+  lints: ^2.0.0
+  test: ^1.20.1
