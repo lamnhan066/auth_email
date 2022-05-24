@@ -5,13 +5,13 @@ import 'package:auth_email/auth_email.dart';
 
 final authEmail = AuthEmail(
   appName: 'Auth Email Test',
-  server: 'https://pub.vursin.com/auth-email',
+  server: '<Your Server>',
   serverKey: 'authemailtestkey',
   isDebug: true,
 );
 
 void main() async {
-  const desMail = 'lyoclone@gmail.com';
+  const desMail = 'exampleclient@gmail.com';
 
   final result = await authEmail.sendOTP(email: desMail);
 

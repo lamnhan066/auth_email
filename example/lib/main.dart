@@ -1,9 +1,10 @@
 import 'package:auth_email/auth_email.dart';
 import 'package:flutter/material.dart';
 
+// This only use for testing purposes.
 final authEmail = AuthEmail(
   appName: 'Auth Email Test',
-  server: 'https://pub.vursin.com/auth-email',
+  server: 'https://pub.vursin.com/auth-email/api',
   serverKey: 'authemailtestkey',
 );
 
@@ -19,12 +20,12 @@ class AuthEmailApp extends StatefulWidget {
 }
 
 class _AuthEmailAppState extends State<AuthEmailApp> {
-  final destinationMail = 'lyoclone@gmail.com';
-
-  String buttonName = 'Send OTP';
+  String sendOtpButton = 'Send OTP';
+  String verifyOtpButton = 'Verify OTP';
 
   bool isSent = false;
-  String textField = '';
+  String desEmailTextField = '';
+  String verifyTextField = '';
 
   @override
   Widget build(BuildContext context) {
@@ -33,43 +34,68 @@ class _AuthEmailAppState extends State<AuthEmailApp> {
         title: const Text('Auth Email'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          if (isSent)
+          if (!isSent) ...[
+            const Text('Input your client email:'),
+            TextFormField(
+              textAlign: TextAlign.center,
+              initialValue: desEmailTextField,
+              onChanged: (value) {
+                desEmailTextField = value;
+              },
+              validator: (value) {
+                if (!AuthEmail.isValidEmail(desEmailTextField)) {
+                  return 'This email is not valid!';
+                }
+                return null;
+              },
+            ),
             ElevatedButton(
               onPressed: () async {
                 setState(() {
-                  buttonName = 'Sending OTP...';
+                  sendOtpButton = 'Sending OTP...';
                 });
 
-                final result = await authEmail.sendOTP(email: destinationMail);
+                final result =
+                    await authEmail.sendOTP(email: desEmailTextField);
 
                 if (!result) {
                   setState(() {
-                    buttonName = 'Send OTP failed!';
+                    sendOtpButton = 'Send OTP failed!';
                   });
                 }
                 setState(() {
                   isSent = result;
                 });
               },
-              child: Text(buttonName),
+              child: Text(sendOtpButton),
             )
-          else ...[
+          ] else ...[
+            const Text('Input your OTP:'),
             TextField(
+              textAlign: TextAlign.center,
               onChanged: (value) {
-                textField = value;
+                verifyTextField = value;
               },
             ),
             ElevatedButton(
               onPressed: () async {
-                final result =
-                    authEmail.verifyOTP(email: destinationMail, otp: textField);
+                final result = authEmail.verifyOTP(
+                    email: desEmailTextField, otp: verifyTextField);
 
-                setState(() {
-                  isSent = result;
-                });
+                if (result) {
+                  setState(() {
+                    verifyOtpButton = 'Verified OTP';
+                  });
+                } else {
+                  setState(() {
+                    verifyOtpButton = 'Verify OTP failed!';
+                  });
+                }
               },
-              child: const Text('Verify OTP'),
+              child: Text(verifyOtpButton),
             )
           ]
         ],

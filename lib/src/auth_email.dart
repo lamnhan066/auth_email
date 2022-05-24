@@ -25,7 +25,7 @@ class AuthEmail {
     String body = '',
     int otpLength = 6,
   }) async {
-    if (!isEmail(email)) return false;
+    if (!isValidEmail(email)) return false;
 
     _finalEmail = email;
     final url = Uri.parse(
@@ -59,7 +59,7 @@ class AuthEmail {
   void _printDebug(Object? object) => isDebug ? print(object) : null;
 
   /// This function will check if the provided email ID is valid or not
-  static bool isEmail(String email) {
+  static bool isValidEmail(String email) {
     String p =
         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
     RegExp regExp = RegExp(p);
