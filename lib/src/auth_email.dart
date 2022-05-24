@@ -4,14 +4,29 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class AuthEmail {
+  /// The name of the application. Must be the same as the appName on your server.
   final String appName;
+
+  /// The URL point to the server side.
   final String server;
+
+  /// An unencrypted server key.
   final String serverKey;
+
+  /// Allow print debug log.
   final bool isDebug;
 
+  /// Internal use only.
   String _finalOTP = '';
   String _finalEmail = '';
 
+  /// Create a new AuthEmail instance.
+  ///
+  /// `appName`: the name of the application. Must be the same as the appName on your server.
+  ///
+  /// `server`: the URL point to the server side.
+  ///
+  /// `serverKey`: an unencrypted server key.
   AuthEmail({
     required this.appName,
     required this.server,
@@ -19,7 +34,14 @@ class AuthEmail {
     this.isDebug = false,
   });
 
-  /// [body] default is `Use this OTP to verify your email for the <b>{appName}</b>, please do not share to anyone: {otp}`
+  /// Send an OTP tp the email.
+  ///
+  /// `body`: default is `Use this OTP to verify your email for the <b>{appName}</b>,
+  ///  please do not share to anyone: {otp}`. this value only works when you set
+  /// `modifiedBody` on your server for this `appName` to `true`.
+  ///
+  /// `otpLength`: Length of the OTP, this value only works when you set `modifiedOtpLength`
+  /// on your server for this `appName` to `true`.
   Future<bool> sendOTP({
     required email,
     String body = '',
@@ -45,6 +67,10 @@ class AuthEmail {
     }
   }
 
+  /// Verify the OTP that inputed by the user.
+  ///
+  /// `email`: The email address of the user.
+  /// `otp`: The OTP to verify.
   bool verifyOTP({required String email, required String otp}) {
     if (_finalEmail == '' || _finalOTP == '') {
       return false;
@@ -55,9 +81,6 @@ class AuthEmail {
     return false;
   }
 
-  // ignore: avoid_print
-  void _printDebug(Object? object) => isDebug ? print(object) : null;
-
   /// This function will check if the provided email ID is valid or not
   static bool isValidEmail(String email) {
     String p =
@@ -65,4 +88,7 @@ class AuthEmail {
     RegExp regExp = RegExp(p);
     return regExp.hasMatch(email);
   }
+
+  // ignore: avoid_print
+  void _printDebug(Object? object) => isDebug ? print(object) : null;
 }
