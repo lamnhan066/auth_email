@@ -4,7 +4,7 @@ This is an easy way to authenticate user email with OTP using PHP as a backend i
 
 ## Server Side
 
-* Download `php_server` from this project and modify `config.php` with your own configurations. Example:
+* Download `php_server` from [here](https://github.com/vursin/auth_email/blob/main/php_server/releases/v0.0.1.zip?raw=true) and modify `config.php` with your own configurations. Example:
   
 ``` php
 // This is a simple configs, you can modify more configs in `index.php`.
