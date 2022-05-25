@@ -1,6 +1,6 @@
 name: auth_email
 description: This is an easy way to authenticate user email with OTP using PHP as a backend in your own server.
-version: 0.0.1+2
+version: 0.0.2
 homepage: https://github.com/vursin/auth_email
 
 environment:
