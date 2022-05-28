@@ -1,3 +1,7 @@
+## 0.0.3
+
+* Temporary remove test server.
+
 ## 0.0.2
 
 * Bring [server_php](https://github.com/vursin/auth_email_server_php) to separated project.

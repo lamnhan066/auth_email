@@ -6,7 +6,7 @@ This is an easy way to authenticate user email with OTP using PHP as a backend i
 
 * Download `server_php` from [here](https://github.com/vursin/auth_email_server_php) and modify `config.php` in `src` directory with your own configurations. Example:
   
-```php
+``` php
 // This is a simple configs, you can modify more configs in `index.php`.
 $HOST = 'example.com';
 $USER_NAME = 'auth@example.com';
@@ -39,12 +39,12 @@ $ALLOWED_APPS = [
 * Add `auth_email` to your project as dependencies.
 * Create a controller for `auth_email`:
   
-```dart
+``` dart
 final authEmail = AuthEmail(
     // Name of application. Must be the same as `authEmail` on server side.
     appName: 'Auth Email Test',
     // URL of your server.
-    server: 'https://example.com/auth-email',
+    server: 'https://example.com/auth/email',
     // You client key.
     serverKey: 'authemailtestkey',
     // Allow print debug log or not.
@@ -54,36 +54,20 @@ final authEmail = AuthEmail(
 
 * Send OTP code to your client email:
 
-```dart
+``` dart
 final bool result = await authEmail.sendOTP(email: 'exampleclient@gmail.com');
 ```
 
 * Verify OTP code:
 
-```dart
+``` dart
 final bool isVerified = authEmail.verifyOTP(email: 'exampleclient@gmail.com', otp: '<code>');
 ```
 
-## Addition
+## Additional
 
 You can check the email is valid or not before sending OTP code by using:
 
-```dart
+``` dart
 final bool isValidEmail = AuthEmail.isValidEmail('exampleclient@gmail.com');
 ```
-
-## Test Server
-
-* This project include a test server, you can try it on web by accessing [here](<https://pub.vursin.com/auth-email/>).
-* You can also try creating your own test app with this test sever by using this configuration:
-  
-```dart
-final authEmail = AuthEmail(
-  appName: 'Auth Email Test',
-  server: 'https://pub.vursin.com/auth-email/api',
-  serverKey: 'authemailtestkey',
-  isDebug: true,
-);
-```
-
-* Please use this config for testing only.
