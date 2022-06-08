@@ -1,3 +1,9 @@
+## 0.0.4
+
+* Debug text is now more clearly.
+* Add library header.
+* Upgrade dependencies.
+
 ## 0.0.3
 
 * Temporary remove test server.

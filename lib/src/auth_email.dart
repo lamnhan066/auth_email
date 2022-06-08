@@ -52,11 +52,12 @@ class AuthEmail {
     _finalEmail = email;
     final url = Uri.parse(
         '$server?appName=$appName&toMail=$email&serverKey=$serverKey&body=$body&otpLength=$otpLength');
-    _printDebug(url);
-    http.Response response = await http.get(url);
+    _printDebug('URL: $url');
 
+    http.Response response = await http.get(url);
     final result = jsonDecode(response.body);
-    _printDebug(result);
+    _printDebug('HTTP RESPONSE: $result');
+
     if (result['status'] == 'ok') {
       _finalOTP = result['message'];
       return true;
@@ -70,6 +71,7 @@ class AuthEmail {
   /// Verify the OTP that inputed by the user.
   ///
   /// `email`: The email address of the user.
+  ///
   /// `otp`: The OTP to verify.
   bool verifyOTP({required String email, required String otp}) {
     if (_finalEmail == '' || _finalOTP == '') {
@@ -90,5 +92,6 @@ class AuthEmail {
   }
 
   // ignore: avoid_print
-  void _printDebug(Object? object) => isDebug ? print(object) : null;
+  void _printDebug(Object? object) =>
+      isDebug ? print('[Auth Email]: $object') : null;
 }
