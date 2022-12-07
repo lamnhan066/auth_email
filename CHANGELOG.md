@@ -1,3 +1,7 @@
+## 0.0.5
+
+* Re-added test server.
+
 ## 0.0.4
 
 * Debug text is now more clearly.

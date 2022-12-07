@@ -71,3 +71,18 @@ You can check the email is valid or not before sending OTP code by using:
 ``` dart
 final bool isValidEmail = AuthEmail.isValidEmail('exampleclient@gmail.com');
 ```
+
+## Test Server
+
+* This project include a test server, you can create your own test app with this test sever by using this configuration:
+  
+  ```dart
+  // This only use for testing purposes.
+  final authEmail = AuthEmail(
+    appName: 'Auth Email Example',
+    server: 'https://auth.vursin.com/email/example',
+    serverKey: 'ohYwh',
+  );
+  ```
+
+* Please use this config for testing only.

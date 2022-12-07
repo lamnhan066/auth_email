@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 // This only use for testing purposes.
 final authEmail = AuthEmail(
-  appName: 'Auth Email Test',
-  server: '<Your Server>',
-  serverKey: 'authemailtestkey',
+  appName: 'Auth Email Example',
+  server: 'https://auth.vursin.com/email/example',
+  serverKey: 'ohYwh',
 );
 
 void main() async {
