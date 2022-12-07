@@ -36,25 +36,40 @@ class AuthEmail {
 
   /// Send an OTP tp the email.
   ///
-  /// `body`: default is `Use this OTP to verify your email for the <b>{appName}</b>,
-  ///  please do not share to anyone: {otp}`. this value only works when you set
+  /// [subject] is the email subject, default value is `Verify Email`, this value
+  /// can be changed only when `modifiedSubject` for this `appName` on your server
+  /// is set to `true`.
+  ///
+  /// [body] default is `Use this OTP to verify your email for the <b>{appName}</b>,
+  ///  please do not share to anyone: {otp}`. this value can be changed only when you set
   /// `modifiedBody` on your server for this `appName` to `true`.
   ///
-  /// `otpLength`: Length of the OTP, this value only works when you set `modifiedOtpLength`
+  /// [otpLength] is length of the OTP, this value only works when you set `modifiedOtpLength`
   /// on your server for this `appName` to `true`.
   Future<bool> sendOTP({
     required email,
+    String subject = '',
     String body = '',
     int otpLength = 6,
   }) async {
     if (!isValidEmail(email)) return false;
 
     _finalEmail = email;
-    final url = Uri.parse(
-        '$server?appName=$appName&toMail=$email&serverKey=$serverKey&body=$body&otpLength=$otpLength');
-    _printDebug('URL: $url');
+    final url = Uri.parse(server);
+    final postBody = {
+      'appName': appName,
+      'toMail': email,
+      'serverKey': serverKey,
+      'subject': subject,
+      'body': body,
+      'otpLength': otpLength,
+    };
+    _printDebug('URL: $url $postBody');
 
-    http.Response response = await http.get(url);
+    http.Response response = await http.post(
+      url,
+      body: postBody,
+    );
     final result = jsonDecode(response.body);
     _printDebug('HTTP RESPONSE: $result');
 
