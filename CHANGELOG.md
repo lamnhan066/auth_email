@@ -1,4 +1,4 @@
-## 0.1.0
+## 0.1.0+1
 
 * **[BREAKING CHANGE]** Update PHP Server to `v0.0.2`
 * Update PHPMailer to 6.7

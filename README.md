@@ -85,7 +85,7 @@ final bool isValidEmail = AuthEmail.isValidEmail('exampleclient@gmail.com');
   // This only use for testing purposes.
   final authEmail = AuthEmail(
     appName: 'Auth Email Example',
-    server: 'https://auth.vursin.com/email/example',
+    server: 'https://pub.vursin.com/auth-email/api',
     serverKey: 'ohYwh',
   );
   ```
