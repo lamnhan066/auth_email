@@ -90,6 +90,7 @@ final bool isValidEmail = AuthEmail.isValidEmail('exampleclient@gmail.com');
   );
   ```
 
+* You can also test this plugin on [web](https://pub.vursin.com/auth-email).
 * Please use this config for testing only.
 
 ## Contributions

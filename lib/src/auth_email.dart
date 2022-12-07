@@ -55,21 +55,21 @@ class AuthEmail {
     if (!isValidEmail(email)) return false;
 
     _finalEmail = email;
-    final url = Uri.parse(server);
-    final postBody = {
+
+    final Map<String, String> uriBody = {
       'appName': appName,
       'toMail': email,
       'serverKey': serverKey,
       'subject': subject,
       'body': body,
-      'otpLength': otpLength,
+      'otpLength': otpLength.toString(),
     };
-    _printDebug('URL: $url $postBody');
+    String uriBodyParams = '';
+    uriBody.forEach((key, value) => uriBodyParams += '$key=$value&');
+    final url = Uri.parse('$server?$uriBodyParams');
+    _printDebug('URL: $url');
 
-    http.Response response = await http.post(
-      url,
-      body: postBody,
-    );
+    http.Response response = await http.get(url);
     final result = jsonDecode(response.body);
     _printDebug('HTTP RESPONSE: $result');
 

@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 // This only use for testing purposes.
 final authEmail = AuthEmail(
   appName: 'Auth Email Example',
-  server: 'https://auth.vursin.com/email/example',
+  server: 'https://pub.vursin.com/auth-email/api',
   serverKey: 'ohYwh',
+  isDebug: true,
 );
 
 void main() async {
@@ -52,6 +53,7 @@ class _AuthEmailAppState extends State<AuthEmailApp> {
                 return null;
               },
             ),
+            const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () async {
                 setState(() {
@@ -80,6 +82,7 @@ class _AuthEmailAppState extends State<AuthEmailApp> {
                 verifyTextField = value;
               },
             ),
+            const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () async {
                 final result = authEmail.verifyOTP(

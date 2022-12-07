@@ -3,37 +3,37 @@
 require 'config.php';
 
 // App name must be set
-if (!isset($_POST['appName']) || $_POST['appName'] === '') {
+if (!isset($_GET['appName']) || $_GET['appName'] === '') {
     exit(json_encode(['status' => 'fail', 'message' => 'missing-params']));
 }
 
 // To mail must be set
-if (!isset($_POST['toMail']) || $_POST['toMail'] === '') {
+if (!isset($_GET['toMail']) || $_GET['toMail'] === '') {
     exit(json_encode(['status' => 'fail', 'message' => 'missing-params']));
 }
 
 // Subject can be an empty string
-if (!isset($_POST['subject'])) {
+if (!isset($_GET['subject'])) {
     exit(json_encode(['status' => 'fail', 'message' => 'missing-params']));
 }
 
 // Body can be an empty string
-if (!isset($_POST['body'])) {
+if (!isset($_GET['body'])) {
     exit(json_encode(['status' => 'fail', 'message' => 'missing-params']));
 }
 
 // Server key must be set
-if (!isset($_POST['serverKey']) || $_POST['serverKey'] === '') {
+if (!isset($_GET['serverKey']) || $_GET['serverKey'] === '') {
     exit(json_encode(['status' => 'fail', 'message' => 'missing-params']));
 }
 
 // Otp length can be empty
-if (!isset($_POST['otpLength'])) {
+if (!isset($_GET['otpLength'])) {
     exit(json_encode(['status' => 'fail', 'message' => 'missing-params']));
 }
 
 // Get server key and compare
-$serverKey = filter_var($_POST['serverKey']);
+$serverKey = filter_var($_GET['serverKey']);
 if (!$serverKey) {
     exit(json_encode(['status' => 'fail', 'message' => 'invalid-server-key']));
 }
@@ -44,13 +44,13 @@ if (hash('sha256', $serverKey) !== $SERVER_SHA256_KEY) {
 }
 
 // Get variables
-$appName = filter_var($_POST['appName']);
+$appName = filter_var($_GET['appName']);
 if (!$appName || !array_key_exists($appName, $ALLOWED_APPS)) {
     exit(json_encode(['status' => 'fail', 'message' => 'invalid-app-name']));
 }
 
 // to mail value
-$toMail = filter_var($_POST['toMail'], FILTER_VALIDATE_EMAIL);
+$toMail = filter_var($_GET['toMail'], FILTER_VALIDATE_EMAIL);
 if (!$toMail) {
     exit(json_encode(['status' => 'fail', 'message' => 'invalid-email']));
 }
@@ -58,7 +58,7 @@ if (!$toMail) {
 // This is the default email subject
 $subject = $DEFAULT_SUBJECT;
 if ($ALLOWED_APPS[$appName]['modifiedSubject']) {
-    $_subject = filter_var($_POST['subject']);
+    $_subject = filter_var($_GET['subject']);
     if ($_subject && $_subject !== '') {
         $subject = $_subject;
     }
@@ -67,7 +67,7 @@ if ($ALLOWED_APPS[$appName]['modifiedSubject']) {
 // This is the default OTP text
 $body = $DEFAULT_BODY;
 if ($ALLOWED_APPS[$appName]['modifiedBody']) {
-    $_body = filter_var($_POST['body']);
+    $_body = filter_var($_GET['body']);
     if ($_body && str_contains($_body, '{appName}') && str_contains($_body, '{email}') && str_contains($_body, '{otp}')) {
         $body = $_body;
     }
@@ -75,7 +75,7 @@ if ($ALLOWED_APPS[$appName]['modifiedBody']) {
 
 $otpLength = $DEFAULT_OTP_LENGTH;
 if ($ALLOWED_APPS[$appName]['modifiedOtpLength']) {
-    $_otpLength = filter_var($_POST['otpLength']);
+    $_otpLength = filter_var($_GET['otpLength']);
     if ($_otpLength && $_otpLength !== '') {
         $otpLength = $_otpLength;
     }
