@@ -1,3 +1,11 @@
+## 0.1.0
+
+* **[BREAKING CHANGE]** Update PHP Server to `v0.0.2`
+* Update PHPMailer to 6.7
+* Re-add `server_php` to this project
+* Support changing email subject
+* Update README
+
 ## 0.0.5
 
 * Re-added test server.

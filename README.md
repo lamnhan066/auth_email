@@ -4,7 +4,7 @@ This is an easy way to authenticate user email with OTP using PHP as a backend i
 
 ## Server Side
 
-* Download `server_php` from [here](https://github.com/vursin/auth_email_server_php) and modify `config.php` in `src` directory with your own configurations. Example:
+* Download php server from [v0.0.2](https://raw.githubusercontent.com/vursin/auth_email/main/server/php/releases/v0.0.2.zip) and modify `config.php` in `src` directory with your own configurations. Example:
   
 ``` php
 // This is a simple configs, you can modify more configs in `index.php`.
@@ -14,6 +14,7 @@ $PASSWORD = 'password';
 $PORT = 587;
 $SEND_FROM = $USER_NAME;
 
+$DEFAULT_SUBJECT = 'Verify Email';
 $DEFAULT_BODY = 'Please use this OTP to verify your email for the <b>{appName}</b>, do not share this code to anyone: <b>{otp}</b>';
 $DEFAULT_OTP_LENGTH = 6;
 
@@ -24,6 +25,8 @@ $SERVER_SHA256_KEY = '6955c3a2dbfd121697623896b38f5eb759d2cd503476980e14b9beb0cc
 $ALLOWED_APPS = [
     // Name of application. Must be the same as `appName` on client side.
     'Auth Email Test' => [
+        // Allow this app using modified subject or not.
+        'modifiedSubject' => false,
         // Allow this app using modified body or not.
         'modifiedBody' => false,
         // Allow this app using modified otp length or not.
@@ -51,6 +54,8 @@ final authEmail = AuthEmail(
     isDebug: true,
 );
 ```
+
+You can also change email `subject`, `body` and `otpLength` by its parameters as you want to, but you have to change the permissions on your php server config to `true` first.
 
 * Send OTP code to your client email:
 
@@ -86,3 +91,7 @@ final bool isValidEmail = AuthEmail.isValidEmail('exampleclient@gmail.com');
   ```
 
 * Please use this config for testing only.
+
+## Contributions
+
+* Feel free to file an issue if you find any bugs or something is missing, PR is also welcome.
