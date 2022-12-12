@@ -39,12 +39,12 @@ $ALLOWED_APPS = [
 
 ## Client Side
 
-* Add `auth_email` to your project as dependencies.
+* Add `auth_email` to your project as dependency.
 * Create a controller for `auth_email`:
   
 ``` dart
 final authEmail = AuthEmail(
-    // Name of application. Must be the same as `authEmail` on server side.
+    // Name of application. Must be available in the `$ALLOWED_APPS` on server.
     appName: 'Auth Email Test',
     // URL of your server.
     server: 'https://example.com/auth/email',
@@ -84,7 +84,7 @@ final bool isValidEmail = AuthEmail.isValidEmail('exampleclient@gmail.com');
   ```dart
   // This only use for testing purposes.
   final authEmail = AuthEmail(
-    appName: 'Auth Email Example',
+    appName: 'Auth Email Example', // <- For testing, only this app name is allowed
     server: 'https://pub.vursin.com/auth-email/api',
     serverKey: 'ohYwh',
   );

@@ -1,3 +1,7 @@
+## 0.1.0+2
+
+* Improve README.
+
 ## 0.1.0+1
 
 * **[BREAKING CHANGE]** Update PHP Server to `v0.0.2`
