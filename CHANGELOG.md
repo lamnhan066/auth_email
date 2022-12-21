@@ -1,3 +1,7 @@
+## 0.1.0+3
+
+* Update PHP Server to `v0.0.3`: Improve body TYPO.
+
 ## 0.1.0+2
 
 * Improve README.

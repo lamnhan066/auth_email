@@ -1,6 +1,6 @@
 <?php
 
-// Version: 0.0.2
+// Version: 0.0.3
 
 $HOST = '';
 $USER_NAME = '';
@@ -9,7 +9,7 @@ $PORT = 587;
 $SEND_FROM = $USER_NAME;
 
 $DEFAULT_SUBJECT = 'Verify Email';
-$DEFAULT_BODY = 'Please use this OTP to verify your email for the <b>{appName}</b>, do not share this code to anyone: <b>{otp}</b>';
+$DEFAULT_BODY = 'Please use this OTP to verify your email for the <b>{appName}</b>, and do not share this code with anyone: <b>{otp}</b>';
 $DEFAULT_OTP_LENGTH = 6;
 
 $SERVER_SHA256_KEY = '';
