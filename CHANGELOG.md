@@ -1,3 +1,8 @@
+## 0.2.0
+
+* Change sdk version to `>=2.18.0 <4.0.0`.
+* Bump http version to `1.0.0`.
+
 ## 0.1.0+3
 
 * Update PHP Server to `v0.0.3`: Improve body TYPO.
