@@ -1,3 +1,7 @@
+## 0.2.1
+
+* Check response status code from http.
+
 ## 0.2.0
 
 * Change sdk version to `>=2.18.0 <4.0.0`.

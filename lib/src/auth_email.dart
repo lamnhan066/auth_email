@@ -70,6 +70,14 @@ class AuthEmail {
     _printDebug('URL: $url');
 
     http.Response response = await http.get(url);
+
+    if (response.statusCode != 200) {
+      _printDebug('HTTP RESPONSE CODE = ${response.statusCode} != 200');
+      _finalEmail = '';
+      _finalOTP = '';
+      return false;
+    }
+
     final result = jsonDecode(response.body);
     _printDebug('HTTP RESPONSE: $result');
 
