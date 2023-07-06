@@ -1,6 +1,7 @@
-## 0.2.1
+## 0.2.2
 
 * Check response status code from http.
+* Update example api.
 
 ## 0.2.0
 
