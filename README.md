@@ -85,12 +85,12 @@ final bool isValidEmail = AuthEmail.isValidEmail('exampleclient@gmail.com');
   // This only use for testing purposes.
   final authEmail = AuthEmail(
     appName: 'Auth Email Example', // <- For testing, only this app name is allowed
-    server: 'https://pub.vursin.com/auth-email/api',
+    server: 'https://pub.lamnhan.dev/auth-email/api',
     serverKey: 'ohYwh',
   );
   ```
 
-* You can also test this plugin on [web](https://pub.vursin.com/auth-email).
+* You can also test this plugin on [web](https://pub.lamnhan.dev/auth-email).
 * Please use this config for testing only.
 
 ## Contributions
