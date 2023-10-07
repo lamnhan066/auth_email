@@ -1,3 +1,8 @@
+## 0.2.3
+
+* Update homepage URL.
+* Update comments.
+
 ## 0.2.2
 
 * Check response status code from http.

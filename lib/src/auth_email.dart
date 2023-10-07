@@ -106,7 +106,7 @@ class AuthEmail {
     return false;
   }
 
-  /// This function will check if the provided email ID is valid or not
+  /// This function will check if the provided email ID is valid or not.
   static bool isValidEmail(String email) {
     String p =
         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
