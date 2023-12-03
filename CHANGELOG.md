@@ -1,3 +1,10 @@
+## 0.3.0
+
+* Update PHPMailer to 6.9.1.
+* Update Server to `v0.0.4`.
+* Improve config.php comments.
+* Update README.
+
 ## 0.2.3
 
 * Update homepage URL.

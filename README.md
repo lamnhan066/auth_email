@@ -4,7 +4,7 @@ This is an easy way to authenticate user email with OTP using PHP as a backend i
 
 ## Server Side
 
-* Download php server from [v0.0.3](https://raw.githubusercontent.com/vnniz/auth_email/main/server/php/releases/v0.0.3.zip) and modify `config.php` in `src` directory with your own configurations. Example:
+* Download php server from [v0.0.4](https://raw.githubusercontent.com/vnniz/auth_email/main/server/php/releases/v0.0.4.zip) and modify `config.php` in `src` directory with your own configurations. Example:
   
 ``` php
 // This is a simple configs, you can modify more configs in `index.php`.
@@ -55,13 +55,13 @@ final authEmail = AuthEmail(
 );
 ```
 
-You can also change email `subject`, `body` and `otpLength` by its parameters as you want to, but you have to change the permissions on your php server config to `true` first.
-
 * Send OTP code to your client email:
 
 ``` dart
 final bool result = await authEmail.sendOTP(email: 'exampleclient@gmail.com');
 ```
+
+You can also change email `subject`, `body` and `otpLength` by its parameters as you want to, but you have to change the permissions on your php server config to `true` first.
 
 * Verify OTP code:
 
