@@ -81,9 +81,9 @@ if ($ALLOWED_APPS[$appName]['modifiedOtpLength']) {
     }
 }
 
-require __DIR__.'/PHPMailer/src/Exception.php';
-require __DIR__.'/PHPMailer/src/PHPMailer.php';
-require __DIR__.'/PHPMailer/src/SMTP.php';
+require __DIR__ . '/PHPMailer/src/Exception.php';
+require __DIR__ . '/PHPMailer/src/PHPMailer.php';
+require __DIR__ . '/PHPMailer/src/SMTP.php';
 
 // Import PHPMailer classes into the global namespace
 // These must be at the top of your script, not inside a function
@@ -120,7 +120,10 @@ try {
     ]);
 
     $mail->send();
-    exit(json_encode(['status' => 'ok', 'message' => $otp]));
+
+    $salt = generateSalt();
+    $hashed = hash('sha256', $toMail . ':' . $otp . ':' . $salt);
+    exit(json_encode(['status' => 'ok', 'hashed' => $hashed, 'salt' => $salt]));
 } catch (Exception $e) {
     $log = "<-- Package Auth_Email Error --->\n$e\n<-- Package Auth_Email Error --->";
     file_put_contents('php://stderr', var_export($log, true));
@@ -129,5 +132,10 @@ try {
 
 function generateOtp($length = 6): string
 {
-    return rand((int) ('1'.str_repeat('0', $length - 1)), (int) str_repeat('9', $length));
+    return rand((int) ('1' . str_repeat('0', $length - 1)), (int) str_repeat('9', $length));
+}
+
+function generateSalt(): string
+{
+    return bin2hex(random_bytes(16));
 }

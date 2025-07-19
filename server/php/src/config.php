@@ -1,6 +1,6 @@
 <?php
 
-// Version: 0.0.4
+// Version: 0.0.5
 
 // Set the SMTP server to send through
 $HOST = '';
