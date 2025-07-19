@@ -1,3 +1,10 @@
+## 0.4.0
+
+* Encrypt the received data using SHA256 instead of the raw OTP.
+* Update PHPMailer to 6.10.0.
+* Update the example.
+* **[BREADKING CHANGE]:** Update Server to v0.0.5.
+
 ## 0.3.0
 
 * Update PHPMailer to 6.9.1.
