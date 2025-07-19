@@ -1,10 +1,12 @@
 # Auth Email
 
-This is an easy way to authenticate user email with OTP using PHP as a backend in your own server.
+This plugin provides a simple and secure way to authenticate user emails using OTP with a PHP backend hosted on your own server.
+
+The OTP is encrypted using SHA256, combining the email, OTP, and a salt value. This ensures enhanced security by transmitting a hashed OTP from the server instead of the raw value.
 
 ## Server Side
 
-* Download php server from [v0.0.4](https://raw.githubusercontent.com/vnniz/auth_email/main/server/php/releases/v0.0.4.zip) and modify `config.php` in `src` directory with your own configurations. Example:
+* Download php server from [v0.0.5](https://raw.githubusercontent.com/vnniz/auth_email/main/server/php/releases/v0.0.5.zip) and modify `config.php` in `src` directory with your own configurations. Example:
   
 ``` php
 // This is a simple configs, you can modify more configs in `index.php`.
@@ -85,7 +87,7 @@ final bool isValidEmail = AuthEmail.isValidEmail('exampleclient@gmail.com');
   // This only use for testing purposes.
   final authEmail = AuthEmail(
     appName: 'Auth Email Example', // <- For testing, only this app name is allowed
-    server: 'https://pub.lamnhan.dev/auth-email/api',
+    server: 'https://pub.lamnhan.dev/auth-email/api/v0.0.5',
     serverKey: 'ohYwh',
   );
   ```
