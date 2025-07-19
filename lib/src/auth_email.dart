@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
 
 class AuthEmail {
@@ -17,8 +18,8 @@ class AuthEmail {
   final bool isDebug;
 
   /// Internal use only.
-  String _finalOTP = '';
-  String _finalEmail = '';
+  String _hashed = '';
+  String _salt = '';
 
   /// Create a new AuthEmail instance.
   ///
@@ -54,8 +55,6 @@ class AuthEmail {
   }) async {
     if (!isValidEmail(email)) return false;
 
-    _finalEmail = email;
-
     final Map<String, String> uriBody = {
       'appName': appName,
       'toMail': email,
@@ -73,8 +72,9 @@ class AuthEmail {
 
     if (response.statusCode != 200) {
       _printDebug('HTTP RESPONSE CODE = ${response.statusCode} != 200');
-      _finalEmail = '';
-      _finalOTP = '';
+
+      _hashed = '';
+      _salt = '';
       return false;
     }
 
@@ -82,11 +82,12 @@ class AuthEmail {
     _printDebug('HTTP RESPONSE: $result');
 
     if (result['status'] == 'ok') {
-      _finalOTP = result['message'];
+      _hashed = result['hashed'];
+      _salt = result['salt'];
       return true;
     } else {
-      _finalEmail = '';
-      _finalOTP = '';
+      _hashed = '';
+      _salt = '';
       return false;
     }
   }
@@ -97,12 +98,13 @@ class AuthEmail {
   ///
   /// `otp`: The OTP to verify.
   bool verifyOTP({required String email, required String otp}) {
-    if (_finalEmail == '' || _finalOTP == '') {
-      return false;
-    }
-    if (email.trim() == _finalEmail && otp.trim() == _finalOTP) {
+    final encoded = utf8.encode('$email:$otp:$_salt');
+    final hashed = sha256.convert(encoded).toString();
+
+    if (hashed == _hashed) {
       return true;
     }
+
     return false;
   }
 
