@@ -48,7 +48,7 @@ class AuthEmail {
   /// [otpLength] is length of the OTP, this value only works when you set `modifiedOtpLength`
   /// on your server for this `appName` to `true`.
   Future<bool> sendOTP({
-    required email,
+    required String email,
     String subject = '',
     String body = '',
     int otpLength = 6,
